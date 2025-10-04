@@ -95,7 +95,11 @@ export default async function Page({
 						},
 						pre: (props) => {
 							return (
-								<CodeBlock className="rounded-xl bg-fd-muted" {...props}>
+								<CodeBlock
+									className="rounded-xl bg-fd-muted"
+									allowCopy={true}
+									{...props}
+								>
 									<div style={{ minWidth: "100%", display: "table" }}>
 										<Pre className="px-0 py-3 bg-fd-muted focus-visible:outline-none">
 											{props.children}
@@ -172,7 +176,7 @@ export async function generateMetadata({
 	const { slug } = await params;
 	const page = source.getPage(slug);
 	if (page == null) notFound();
-	const baseUrl = process.env.NEXT_PUBLIC_URL || process.env.VERCEL_URL;
+	const baseUrl = process.env.NEXT_PUBLIC_URL || process.env.VERCEL_URL || 'http://localhost:3000';
 	const url = new URL(`${baseUrl}/api/og`);
 	const { title, description } = page.data;
 	const pageSlug = page.file.path;
